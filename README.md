@@ -37,7 +37,7 @@
 
 ---
 
-## 🛠 사용 언어 및 환경
+### 사용 언어 및 환경
 * **Language:** Java
 * **IDE:** IntelliJ IDEA / VS Code
 ---
