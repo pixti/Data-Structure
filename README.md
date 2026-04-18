@@ -18,7 +18,7 @@
 
 | 주차 | 학습 주제 | 상세 내용 |
 | :-- | :--- | :--- |
-| **1주차** | 자료구조 개요 | 시간 복잡도(Time Complexity), 공간 복잡도(Space Complexity) 상각분석(Amortized Analysis), Big-O |
+| **1주차** | 자료구조 개요(Intro) | 시간 복잡도(Time Complexity), 공간 복잡도(Space Complexity), 상각분석(Amortized Analysis), Big-O |
 | **2주차** | ArrayList | Array, ArrayList, Polynomial, Matrix | |
 | **3주차** | LinkedList | Singly, Circular, Doubly, DoublyCircular |
 | **4주차** | Stack&Queue | Stack, Queue, Deque, Expression Notation, Maze Problem |
