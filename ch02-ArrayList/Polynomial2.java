@@ -36,50 +36,53 @@ public class Polynomial2 {
     }
 
     /**
-     * for 문을 이용한 다항식 덧셈 로직 (Add)
-     * 로직: 두 다항식의 항을 지수별로 비교하여 병합(Merge)함
+     * while 문을 이용한 다항식 덧셈 로직 (Add)
+     * 로직: 두 다항식의 포인터를 각각 움직이며 지수 크기에 따라 병합(Merge)함
      */
     public Polynomial2 add(Polynomial2 pn) {
         Polynomial2 resultPoly = new Polynomial2(); // 결과를 담을 새 객체 생성
-        int thisIdx, pnIdx;
+        int thisIdx = 0; // 내 다항식의 현재 위치를 가리키는 포인터
+        int pnIdx = 0;   // 상대 다항식의 현재 위치를 가리키는 포인터
 
-        // 지수 비교를 통해 두 다항식을 큰 차수부터 병합
-        // 증감식을 비워두어 조건에 맞는 포인터만 선택적으로 이동시킴
-        for (thisIdx = 0, pnIdx = 0; thisIdx < this.termCnt && pnIdx < pn.termCnt; ) {
+        // 두 다항식 모두 아직 비교할 항이 남아있는 동안 반복
+        while (thisIdx < this.termCnt && pnIdx < pn.termCnt) {
             Term thisTerm = this.getIthTerm(thisIdx);
             Term pnTerm = pn.getIthTerm(pnIdx);
             int compare = thisTerm.compareWithExp(pnTerm);
 
             if (compare > 0) {
-                // 내 다항식의 지수가 더 크면 내 항을 먼저 결과에 추가
+                // 내 지수가 더 크면: 내 항을 먼저 추가하고 내 포인터(thisIdx) 이동
                 resultPoly.push(thisTerm.getCoef(), thisTerm.getExp());
                 thisIdx++;
             } else if (compare < 0) {
-                // 상대 다항식의 지수가 더 크면 상대 항을 먼저 결과에 추가
+                // 상대 지수가 더 크면: 상대 항을 먼저 추가하고 상대 포인터(pnIdx) 이동
                 resultPoly.push(pnTerm.getCoef(), pnTerm.getExp());
                 pnIdx++;
             } else {
-                // 두 지수가 같은 경우 계수를 합산
+                // 두 지수가 같으면: 계수를 합산
                 double sumCoef = thisTerm.getCoef() + pnTerm.getCoef();
-                // 계수의 합이 0이 아닐 때만 결과 다항식에 포함
+                // 합산된 계수가 0이 아닐 때만 결과 다항식에 추가
                 if (sumCoef != 0) {
                     resultPoly.push(sumCoef, thisTerm.getExp());
                 }
-                // 지수가 같았으므로 양쪽 인덱스 모두 이동
+                // 지수가 같았으므로 양쪽 포인터를 모두 한 칸씩 이동
                 thisIdx++;
                 pnIdx++;
             }
         }
 
-        // 1차 비교 후 내 다항식에 남아있는 항들을 순차적으로 추가
-        for (; thisIdx < this.termCnt; thisIdx++) {
+        // 메인 루프 종료 후, 내 다항식(this)에 남은 항이 있다면 순서대로 추가
+        while (thisIdx < this.termCnt) {
             Term t = this.getIthTerm(thisIdx);
             resultPoly.push(t.getCoef(), t.getExp());
+            thisIdx++;
         }
-        // 1차 비교 후 상대 다항식에 남아있는 항들을 순차적으로 추가
-        for (; pnIdx < pn.termCnt; pnIdx++) {
+
+        // 메인 루프 종료 후, 상대 다항식(pn)에 남은 항이 있다면 순서대로 추가
+        while (pnIdx < pn.termCnt) {
             Term t = pn.getIthTerm(pnIdx);
             resultPoly.push(t.getCoef(), t.getExp());
+            pnIdx++;
         }
 
         return resultPoly; // 완성된 덧셈 결과 반환
