@@ -1,4 +1,4 @@
-## 5. 상속(Inheritance) vs 포함(Composition)
+# 5. 상속(Inheritance) vs 포함(Composition)
 
 객체지향 프로그래밍(OOP)에서 클래스 간의 관계를 설정하는 두 가지 핵심 방법입니다.
 
