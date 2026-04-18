@@ -19,7 +19,7 @@
 | 주차 | 학습 주제 | 상세 내용 | 비고 |
 | :-- | :--- | :--- | :--- |
 | **1주차** | 자료구조 개요 | 자료구조의 정의 및 알고리즘 복잡도 (Big-O) | |
-| **2주차** | ArrayList |  | |
+| **2주차** | ArrayList | ArrayList, Polynomial, Matrix | |
 | **3주차** | LinkedList | Singly LinkedList, 이중 연결 리스트, 원형 리스트 | |
 | **4주차** | 스택 (Stack) | 스택의 개념, push/pop 연산, 스택의 응용 | |
 | **5주차** | 큐 (Queue) | 선형 큐, 원형 큐, 우선순위 큐 | |
