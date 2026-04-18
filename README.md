@@ -20,7 +20,7 @@
 | :-- | :--- | :--- | :--- |
 | **1주차** | 자료구조 개요 | 자료구조의 정의 및 알고리즘 복잡도 (Big-O) | |
 | **2주차** | ArrayList | ArrayList, Polynomial, Matrix | |
-| **3주차** | LinkedList | Singly LinkedList, 이중 연결 리스트, 원형 리스트 | |
+| **3주차** | LinkedList | SinglyLinkedList, CircularLinkedList, DoublyLinkedList, DoublyCircularLinkedList | |
 | **4주차** | Stack&Queue |  | |
 | **5주차** |  | 선형 큐, 원형 큐, 우선순위 큐 | |
 | **6주차** | 트리 (Tree) I | 이진 트리 정의 및 순회 (Pre/In/Post-order) | |
