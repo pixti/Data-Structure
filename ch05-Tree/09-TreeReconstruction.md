@@ -26,7 +26,7 @@
 1.  **루트 찾기**: 전위 순서의 첫 번째인 **A**가 전체 트리의 루트입니다.    
 2.  **서브트리 분할**: 중위 순서에서 **A**를 기준으로 왼쪽은 **{B, C}**, 오른쪽은 **{E, D, G, H, F, I}** 로 나뉩니다.
 <img width="490" height="173" alt="image" src="https://github.com/user-attachments/assets/74cf4d32-ac39-4398-883b-eba57d1cae30" /> 
-3.  **왼쪽 서브트리 복원**:
+3.  **왼쪽 서브트리 복원** :
     * 전위 순서에서 A 다음인 **B**가 왼쪽 서브트리의 루트가 됩니다.  
     * 중위 순서에서 **B**의 왼쪽은 공백(null), 오른쪽은 **C**임이 확인됩니다.  
 <img width="417" height="208" alt="image" src="https://github.com/user-attachments/assets/b08f66ce-fa5f-44a5-a0de-a8d4a0ffd6ea" />
