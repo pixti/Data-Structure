@@ -122,3 +122,58 @@ public void inorder(Node n) { // 중위 순회
 | **Step 19** | **최종 종료**<br>🔚 이진 트리 중위 순회 프로세스 전체 완료 | (Empty) | **D G B H E A C F** |
 
 
+### 5. Postorder Traversal (후위 순회, L→R→V)  
+후위 순회는 현재 노드(V)를 방문하기 전, 왼쪽 서브트리(L)와 오른쪽 서브트리(R)를 모두 완전히 탐색한 후에 가장 마지막으로 자기 자신을 처리하는 방식입니다.  
+이 방식은 하위 노드들의 정보가 먼저 처리되어야 하는 트리의 노드 삭제(자식을 먼저 지워야 함)나  
+폴더 용량 계산, 수식의 후위 표기법(Postfix) 계산 등에서 핵심적으로 사용됩니다.   
+
+L (Left): 왼쪽 서브트리를 먼저 순회합니다.  
+R (Right): 왼쪽 탐색이 끝나면 오른쪽 서브트리를 이어서 순회합니다.  
+V (Visit): 양쪽 자식 서브트리의 모든 탐색이 완전히 종료되어야 비로소 현재 노드를 방문합니다.  
+
+#### 5-1. 재귀적 정의:  
+각 노드에서의 순회는 동일하게 $L \rightarrow R \rightarrow V$ 순서로 이루어집니다.  
+즉, 왼쪽 자식과 오른쪽 자식의 모든 방문이 복귀(Return) 되어야만 비로소 자신의 이름을 출력할 수 있는 '선자식 후부모' 구조를 가집니다.  
+모든 순회 방식 중 뿌리(Root) 노드가 가장 마지막에 출력되는 것이 특징입니다.  
+
+<img width="537" height="401" alt="image" src="https://github.com/user-attachments/assets/86099720-c19f-4c83-bf18-e5ad69e77132" />
+
+
+```java
+public void postorder(Node n) { // 후위순회
+    if (n != null) {
+        postorder(n.getLeft());  // n의 왼쪽 서브트리를 순회하기 위해
+        postorder(n.getRight()); // n의 오른쪽 서브트리를 순회하기 위해
+        System.out.print(n.getKey() + " "); // 노드 n 방문
+    }
+}
+```
+
+#### 5-2. Postorder Traversal(후위 순회) 단계별 전체 실행 과정 (Step 1 ~ 21)
+후위 순회는 **L(왼쪽 서브트리) → R(오른쪽 서브트리) → V(방문/출력)** 순서로 진행됩니다.   
+나(V)를 방문하기 위해서는 반드시 왼쪽과 오른쪽 자식의 탐색이 모두 종료되어야 하므로, 시스템 스택의 가장 깊은 곳에 '나중에 수행할 내 이름(Visit)'이 저장됩니다.  
+
+| 단계 | 실행 내용 (L → R → V) | 시스템 스택 (대기 중인 작업) | 출력 결과 |
+| :--- | :--- | :--- | :--- |
+| **Step 1** | **postorder(A)** 시작<br>**L**: `postorder(B)` 호출<br>**R**: `postorder(C)` 대기, **V**: `Visit(A)` 대기 | `Visit(A), postorder(C)` | - |
+| **Step 2** | **postorder(B)** 시작<br>**L**: `postorder(D)` 호출<br>**R**: `postorder(E)` 대기, **V**: `Visit(B)` 대기 | `Visit(B), postorder(E)`<br>→ `Visit(A), postorder(C)` | - |
+| **Step 3** | **postorder(D)** 시작<br>**L**: 없음(null) 호출 종료<br>**R**: `postorder(G)` 호출하며 이동<br>**V**: `Visit(D)` 대기 | `Visit(D)`<br>→ `Visit(B), postorder(E)`<br>→ `Visit(A), postorder(C)` | - |
+| **Step 4** | **postorder(G)** 시작<br>**L**: 없음(null) / **R**: 없음(null) 호출 종료<br>**V**: Node **G** 방문 및 출력 -> **G** | `Visit(D)`<br>→ `Visit(B), postorder(E)`<br>→ `Visit(A), postorder(C)` | **G** |
+| **Step 5** | **postorder(G) 종료 및 복귀**<br>↩️ 부모 **D**의 **R-탐색 종료 및 V-방문 시작 시점**으로 복귀 | `Visit(D)`<br>→ `Visit(B), postorder(E)`<br>→ `Visit(A), postorder(C)` | **G** |
+| **Step 6** | **postorder(D)** 복귀 및 재개<br>**V**: 대기하던 **Visit(D)** 수행 -> **D** 출력 | `Visit(B), postorder(E)`<br>→ `Visit(A), postorder(C)` | **G D** |
+| **Step 7** | **postorder(D) 종료 및 복귀**<br>↩️ 부모 **B**의 **L-탐색 종료 및 R-탐색 시작 시점**으로 복귀 | `Visit(B), postorder(E)`<br>→ `Visit(A), postorder(C)` | **G D** |
+| **Step 8** | **postorder(B)** 복귀 및 재개<br>**R**: 대기하던 **postorder(E)** 호출하며 이동 | `Visit(B)`<br>→ `Visit(A), postorder(C)` | **G D** |
+| **Step 9** | **postorder(E)** 시작<br>**L**: `postorder(H)` 호출하며 이동<br>**R**: 없음(null) 대기, **V**: `Visit(E)` 대기 | `Visit(E)`<br>→ `Visit(B)`<br>→ `Visit(A), postorder(C)` | **G D** |
+| **Step 10** | **postorder(H)** 시작<br>**L**: 없음(null) / **R**: 없음(null) 호출 종료<br>**V**: Node **H** 방문 및 출력 -> **H** | `Visit(E)`<br>→ `Visit(B)`<br>→ `Visit(A), postorder(C)` | **G D H** |
+| **Step 11** | **postorder(H) 종료 및 복귀**<br>↩️ 부모 **E**의 **L-탐색 종료 및 R-탐색 시작 시점**으로 복귀 | `Visit(E)`<br>→ `Visit(B)`<br>→ `Visit(A), postorder(C)` | **G D H** |
+| **Step 12** | **postorder(E)** 복귀 및 재개<br>**R**: 없음(null) 확인 후 **V-방문 시작 시점**으로 진입<br>**V**: 대기하던 **Visit(E)** 수행 -> **E** 출력 | `Visit(B)`<br>→ `Visit(A), postorder(C)` | **G D H E** |
+| **Step 13** | **postorder(E) 종료 및 복귀**<br>↩️ 부모 **B**의 **R-탐색 종료 및 V-방문 시작 시점**으로 복귀 | `Visit(B)`<br>→ `Visit(A), postorder(C)` | **G D H E** |
+| **Step 14** | **postorder(B)** 복귀 및 재개<br>**V**: 대기하던 **Visit(B)** 수행 -> **B** 출력 | `Visit(A), postorder(C)` | **G D H E B** |
+| **Step 15** | **postorder(B) 종료 및 복귀**<br>↩️ 최상위 부모 **A**의 **L-탐색 종료 및 R-탐색 시작 시점**으로 복귀 | `Visit(A), postorder(C)` | **G D H E B** |
+| **Step 16** | **postorder(A)** 복귀 및 재개<br>**R**: 대기하던 **postorder(C)** 호출하며 이동 | `Visit(A)` | **G D H E B** |
+| **Step 17** | **postorder(C)** 시작<br>**L**: 없음(null) 호출 종료<br>**R**: `postorder(F)` 호출하며 이동<br>**V**: `Visit(C)` 대기 | `Visit(C)`<br>→ `Visit(A)` | **G D H E B** |
+| **Step 18** | **postorder(F)** 시작<br>**L**: 없음(null) / **R**: 없음(null) 호출 종료<br>**V**: Node **F** 방문 및 출력 -> **F** | `Visit(C)`<br>→ `Visit(A)` | **G D H E B F** |
+| **Step 19** | **postorder(F) 종료 및 복귀**<br>↩️ 부모 **C**의 **R-탐색 종료 및 V-방문 시작 시점**으로 복귀 | `Visit(C)`<br>→ `Visit(A)` | **G D H E B F** |
+| **Step 20** | **postorder(C)** 복귀 및 재개<br>**V**: 대기하던 **Visit(C)** 수행 -> **C** 출력 | `Visit(A)` | **G D H E B F C** |
+| **Step 21** | **최종 마무리 및 종료**<br>↩️ **A**의 **R-탐색 종료 및 V-방문 시작 시점**으로 복귀<br>**V**: 대기하던 **Visit(A)** 수행 -> **A** 출력<br>🔚 **이진 트리 후위 순회 전체 완료** | (Empty) | **G D H E B F C A** |
+
