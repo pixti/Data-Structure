@@ -50,7 +50,10 @@ $^*$ *검색 후 삽입/삭제 위치를 이미 알고 있는 경우 O(1) 가능
 * **외장 색인 (External Index)**: 데이터가 너무 커서 디스크(Disk)에 저장해야 할 때 사용합니다.    
     * 주요 구조: B-트리, 2-3-4 트리  
 
-#### ② 자식 노드의 수에 따른 분류   
+#### ② 자식 노드의 수에 따른 분류  
+
+<img width="1230" height="487" alt="image" src="https://github.com/user-attachments/assets/3ec48735-532a-4ed7-9201-12fdacc07146" />
+
 * **이진 검색 트리 (Binary Search Tree)**: 각 노드가 최대 2개의 자식을 가집니다. (AVL, Red-Black 등)  
 * **다진 검색 트리 (Multi-way Search Tree)**: 각 노드가 3개 이상의 자식을 가질 수 있어 트리의 높이를 낮출 수 있습니다. (B-트리, 2-3-4 트리)   
 
