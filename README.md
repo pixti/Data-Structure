@@ -18,7 +18,7 @@
 | **3주차** | LinkedList | Singly, Circular, Doubly, DoublyCircular |
 | **4주차** | Stack&Queue | Stack, Queue, Deque, Expression Notation, Maze Problem |
 | **5주차** | Tree | Binary Tree, Tree Traversal, TreeOperations, DisjointSet, Equivalence |
-| **6주차** | BST(Binary Search Tree) |  |
+| **6주차** | BST(Binary Search Tree) | BST search, insert, delete, TreeMap  |
 | **7주차** | Balanced Binary Search Tree | AVL Tree, RB Tree, 2-3 Tree, 2-3-4 Tree, LLRB Tree, B-Tree, B*-Tree, B+Tree|
 | **8주차** | **중간고사** | 
 | **9주차** | 
