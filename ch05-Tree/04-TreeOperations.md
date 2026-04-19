@@ -89,7 +89,6 @@ public int height(Node n) {
     }
 }
 ```
-
 ### 2-3. 복잡도 분석  
 
 * **시간 복잡도**: $O(N)$      
@@ -97,4 +96,58 @@ public int height(Node n) {
 * **공간 복잡도**: $O(H)$    
     * 재귀 호출 스택의 깊이는 트리의 높이($H$)에 비례합니다.    
     * **균형 잡힌 트리(Balanced Tree)** 라면 높이가 $\log_2 N$에 수렴하여 공간 효율이 좋지만,
-      한쪽으로 치우친 **편향 트리(Skewed Tree)** 의 경우 높이가 $N$과 같아져 $O(N)$의 공간이 필요할 수 있습니다.  
+      한쪽으로 치우친 **편향 트리(Skewed Tree)** 의 경우 높이가 $N$과 같아져 $O(N)$의 공간이 필요할 수 있습니다.
+
+
+## 3. 이진 트리 비교 : isEqual()  
+### 3-1. 수학적 공식 (Recursive Definition)  
+두 이진 트리 노드 $n$과 $m$의 동일성 여부 $E(n, m)$은 다음과 같이 정의됩니다.  
+
+$$
+E(n, m) = 
+\begin{cases} 
+\text{true} & \text{if } n \text{ and } m \text{ are both null} \\
+\text{false} & \text{if only one of } n, m \text{ is null} \\
+(n.key = m.key) \wedge E(n.left, m.left) \wedge E(n.right, m.right) & \text{otherwise}
+\end{cases}
+$$
+
+* **Base Case 1**: 두 노드가 모두 `null`이면 구조적으로 동일하므로 **true**입니다.
+* **Base Case 2**: 한쪽만 `null`이거나, 두 노드의 데이터(`key`)가 다르면 즉시 **false**를 반환합니다.
+* **Recursive Step**: 현재 노드의 값이 같다면, **왼쪽 서브트리의 동일성**과 **오른쪽 서브트리의 동일성**을 모두 만족($\wedge$, AND 연산)해야 최종적으로 **true**가 됩니다.
+
+
+### 3-2. 핵심 개념 및 작동 원리
+
+* **전위 순회(Pre-order Traversal) 기반**: 루트 노드의 데이터를 먼저 비교한 후 자식 노드로 내려갑니다. "다른 점이 발견되는 순간 즉시 종료"하기 위해 가장 효율적인 방식입니다.
+* **단락 평가 (Short-circuit Evaluation)**: `&&` 연산자의 특성상, 왼쪽 서브트리에서 하나라도 `false`가 나오면 오른쪽 서브트리는 확인하지 않고 즉시 전체 결과를 `false`로 확정 짓습니다.
+* **구조와 값의 동시 비교**: 단순히 값만 비교하는 것이 아니라, `null` 체크를 통해 트리의 전체적인 형태(Structure)까지 일치하는지 재귀적으로 검증합니다.
+
+```java
+public static boolean isEqual(Node n, Node m) {
+    // 1. Base Case: 둘 중 하나라도 null인 경우
+    if (n == null || m == null) {
+        // 둘 다 null이면 true(동일), 하나만 null이면 false(다름) 반환
+        return (n == m); 
+    }
+
+    // 2. 현재 노드의 데이터(Key) 비교
+    if (n.getKey().compareTo(m.getKey()) != 0) {
+        // 데이터가 다르면 즉시 false 반환
+        return false;
+    }
+
+    // 3. Recursive Step: 왼쪽과 오른쪽 서브트리가 모두 동일한지 재귀적으로 검사
+    return (isEqual(n.getLeft(), m.getLeft()) && isEqual(n.getRight(), m.getRight()));
+}
+```
+
+### 3-3. 복잡도 분석
+
+* **시간 복잡도**: $O(\min(N, M))$
+    * 두 트리 중 노드 개수가 적은 트리를 기준으로 탐색이 종료됩니다. 
+    * 최악의 경우(두 트리가 완전히 같을 때) 모든 노드를 방문해야 하므로 $O(N)$이 소요됩니다.
+* **공간 복잡도**: $O(H)$
+    * 재귀 호출 스택의 깊이는 트리의 높이($H$)에 비례합니다.
+    * **균형 잡힌 트리**: $O(\log N)$의 스택 공간을 사용합니다.
+    * **편향 트리**: 한쪽으로 길게 늘어난 경우 $O(N)$까지 늘어날 수 있습니다.
