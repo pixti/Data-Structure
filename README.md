@@ -22,7 +22,7 @@
 | **2주차** | ArrayList | Array, ArrayList, Polynomial, Matrix | |
 | **3주차** | LinkedList | Singly, Circular, Doubly, DoublyCircular |
 | **4주차** | Stack&Queue | Stack, Queue, Deque, Expression Notation, Maze Problem |
-| **5주차** | Tree | Binary Tree, Tree Traversal(Preorder,Inorder,Postorder,Level-order) |
+| **5주차** | Tree | Binary Tree, Tree Traversal, TreeOperations, DisjointSet, Equivalence |
 | **6주차** | BST(Binary Search Tree) |  |
 | **7주차** | Balanced Binary Search Tree | AVL Tree, RB Tree, 2-3 Tree, 2-3-4 Tree, LLRB Tree, B-Tree, B*-Tree, B+Tree|
 | **8주차** | **중간고사** | 
